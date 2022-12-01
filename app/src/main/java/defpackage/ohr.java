@@ -279,8 +279,15 @@ public class ohr {
         return c;
     }
 
-    public static ArrayList c() {
-        return new ArrayList();
+    public static <E> ArrayList<E> c() {
+        return new ArrayList<>();
+    }
+
+    public static void b(boolean z ) {
+        if (z) {
+            return;
+        }
+        throw new IllegalStateException();
     }
 
     public static <T> T b(T obj) {

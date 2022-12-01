@@ -6,7 +6,7 @@ import java.util.List;
 public interface mpz {
     <T> T a(CaptureResult.Key<T> key);
 
-    List a();
+    List<CaptureResult.Key<?>> a();
 
     mpy b();
 
