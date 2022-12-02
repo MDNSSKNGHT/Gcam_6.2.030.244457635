@@ -21,7 +21,7 @@ public final class awn {
         this.b.f();
         this.a.a();
         this.a.a(false);
-        this.d = (ayf) this.c.mo18get();
+        this.d = (ayf) this.c.get();
         return this.d;
     }
 }

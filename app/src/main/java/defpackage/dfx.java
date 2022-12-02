@@ -133,7 +133,7 @@ final class dfx implements dfw {
     private GyroSampleVector a(mpz mpzVar) {
         long longValue = (Long) ohr.b((Long) mpzVar.a(CaptureResult.SENSOR_TIMESTAMP));
         long longValue2 = (Long) ohr.b((Long) mpzVar.a(CaptureResult.SENSOR_EXPOSURE_TIME)) + longValue + MetadataConverter.getReadoutTimeNs(this.l);
-        nyp nypVar = (nyp) this.t.mo18get();
+        nyp nypVar = (nyp) this.t.get();
         if (nypVar.b()) {
             moi moiVar = (moi) nypVar.c();
             this.C.a("gyro");
@@ -296,7 +296,7 @@ final class dfx implements dfw {
                 if (dhmVar.t.k().b()) {
                     shotCallback.setJpeg_callback(dhmVar.m);
                 }
-                nyp onyVar = (nyp) this.o.mo18get();
+                nyp onyVar = (nyp) this.o.get();
                 if (!this.m.a("persist.gcam.debug", true)) {
                     this.s.b();
                     imageSaverParams = null;
@@ -454,7 +454,7 @@ final class dfx implements dfw {
                 if (dhmVar.t.k().b()) {
                     shotCallback.setJpeg_callback(dhmVar.m);
                 }
-                nyp onyVar = (nyp) this.o.mo18get();
+                nyp onyVar = (nyp) this.o.get();
                 if (!this.m.a("persist.gcam.debug", true)) {
                     this.s.b();
                     imageSaverParams = null;
