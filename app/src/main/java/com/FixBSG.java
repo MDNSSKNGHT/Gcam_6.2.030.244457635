@@ -1,9 +1,14 @@
 package com;
 
+import android.annotation.SuppressLint;
+import android.app.Application;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.CaptureResult;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.util.Size;
 
 import com.google.googlex.gcam.DebugParams;
@@ -12,6 +17,8 @@ import com.google.googlex.gcam.InitParams;
 import com.google.googlex.gcam.StaticMetadataVector;
 import com.google.googlex.gcam.Tuning;
 import com.google.googlex.gcam.hdrplus.MetadataConverter;
+
+import java.lang.reflect.InvocationTargetException;
 
 import defpackage.gvk;
 import defpackage.ltm;
@@ -103,33 +110,44 @@ public class FixBSG {
         }
     }
 
+    @SuppressLint("PrivateApi")
+    private static Context getApplicationContext() {
+        try {
+            Class<?> appGlobals = Class.forName("android.app.AppGlobals");
+            Application initialApplication = (Application) (appGlobals.getMethod("getInitialApplication").invoke(null));
+            assert initialApplication != null;
+            return initialApplication
+                    .createPackageContext(initialApplication.getPackageName(), Context.CONTEXT_INCLUDE_CODE)
+                    .getApplicationContext();
+        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException | PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static int MenuValue(String str) {
-        //Application initialApplication = AppGlobals.getInitialApplication();
-        //Context applicationContext = initialApplication.createPackageContext(initialApplication.getPackageName(), 1).getApplicationContext();
-        //boolean contains = PreferenceManager.getDefaultSharedPreferences(applicationContext).contains(str);
-        //return contains ? Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(applicationContext).getString(str, null)) : contains ? 1 : 0;
-        return 0; // dummy value
+        Context applicationContext = getApplicationContext();
+        boolean contains = PreferenceManager.getDefaultSharedPreferences(applicationContext).contains(str);
+        return contains ? Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(applicationContext).getString(str, null)) : 0;
     }
 
     public static int MenuValueIMG() {
-        //if (!Build.DEVICE.equals("aura")) {
-        //    Application initialApplication = AppGlobals.getInitialApplication();
-        //    Context applicationContext = initialApplication.createPackageContext(initialApplication.getPackageName(), 1).getApplicationContext();
-        //    if (PreferenceManager.getDefaultSharedPreferences(applicationContext).contains("img_key")) {
-        //        return Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(applicationContext).getString("img_key", null));
-        //    }
-        //}
+        if (!Build.DEVICE.equals("aura")) {
+            Context applicationContext = getApplicationContext();
+            if (PreferenceManager.getDefaultSharedPreferences(applicationContext).contains("img_key")) {
+                return Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(applicationContext).getString("img_key", null));
+            }
+        }
         return 256;
     }
 
     public static int MenuValueRAW() {
-        //if (!Build.DEVICE.equals("aura")) {
-        //    Application initialApplication = AppGlobals.getInitialApplication();
-        //    Context applicationContext = initialApplication.createPackageContext(initialApplication.getPackageName(), 1).getApplicationContext();
-        //    if (PreferenceManager.getDefaultSharedPreferences(applicationContext).contains("raw_key")) {
-        //        return Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(applicationContext).getString("raw_key", null));
-        //    }
-        //}
+        if (!Build.DEVICE.equals("aura")) {
+            Context applicationContext = getApplicationContext();
+            if (PreferenceManager.getDefaultSharedPreferences(applicationContext).contains("raw_key")) {
+                return Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(applicationContext).getString("raw_key", null));
+            }
+        }
         return 37;
     }
 
@@ -260,9 +278,6 @@ public class FixBSG {
 
     public static void getInputStyle() {
         if (Build.DEVICE.equals("aura")) {
-            int i = Build.VERSION.SDK_INT;
-            if (i >= 28) {
-            }
             sInputStyleMan = "google";
             sInputStyleDev = "taimen";
         }
