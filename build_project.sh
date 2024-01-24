@@ -3,24 +3,31 @@
 set -e
 
 export MERGED_DEX_FILE="app/build/intermediates/dex/release/mergeDexRelease/classes.dex"
-export DISASSEMBLY_PATH="/tmp/dummy-dump-GCam-6.2.030"
-export BASE_PORT_DIR="/home/madnessknight/projects/GCam-6.2.030"
+export DISASSEMBLY_PATH="/tmp/dummy-dump-Gcam_6.2.030.244457635"
+export BASE_PORT_DIR="$PROJECT_DIRECTORY/Gcam_6.2.030.244457635/apk-base"
 
 export GIT_WORK_TREE="$BASE_PORT_DIR"
 export GIT_DIR="$BASE_PORT_DIR/.git"
 
 main()
 {
+  if ! [ -d "$BASE_PORT_DIR" ]; then
+      wget "https://2-dontsharethislink.celsoazevedo.com/file/filesc/MGC_6.2.030_MI9SE_V4_plus2.apk"
+      apktool decode "MGC_6.2.030_MI9SE_V4_plus2.apk" --output "apk-base"
+      git init "$BASE_PORT_DIR" -b main
+      git add .
+      git commit -s "Initial commit"
+  fi
+
   rm -rf "$DISASSEMBLY_PATH" || true
   mkdir -p "$DISASSEMBLY_PATH" || true
 
- git reset --hard HEAD &
- git clean -df &
+  git reset --hard HEAD
+  git clean -df
 
-  ./gradlew dexBuilderDebug mergeDexRelease
+  ./gradlew mergeDexRelease
   baksmali disassemble "$MERGED_DEX_FILE" -o "$DISASSEMBLY_PATH"
   find "$DISASSEMBLY_PATH"/com "$DISASSEMBLY_PATH"/defpackage -name "*.smali" -exec sed -i 's/defpackage\///g' {} \;
-
   find "$DISASSEMBLY_PATH"/com "$DISASSEMBLY_PATH"/defpackage -name "*.smali" -exec sh -c '
           CURRENT_SMALI_FILE=$1
           TARGET_SMALI_FILES=(
@@ -42,7 +49,14 @@ main()
             fi
           done
   ' sh {} \;
-  apktool build "$BASE_PORT_DIR" ; uber-apk-signer -a "$BASE_PORT_DIR"/dist --overwrite
+
+  pushd "$BASE_PORT_DIR"
+  for patch in "$PROJECT_DIRECTORY"/Gcam_6.2.030.244457635/apk-patches/*.patch; do
+    git apply "$patch"
+  done
+  popd
+
+  apktool build --use-aapt1 "$BASE_PORT_DIR" ; uber-apk-signer -a "$BASE_PORT_DIR"/dist --overwrite
 }
 
 main "$@"

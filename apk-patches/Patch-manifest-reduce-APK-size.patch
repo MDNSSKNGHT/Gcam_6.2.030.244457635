@@ -1,0 +1,74 @@
+diff --git a/AndroidManifest.xml b/AndroidManifest.xml
+index cbbdc02..fc171f3 100644
+--- a/AndroidManifest.xml
++++ b/AndroidManifest.xml
+@@ -46,7 +46,7 @@
+         <screen android:screenDensity="xxhdpi" android:screenSize="large"/>
+         <screen android:screenDensity="xxhdpi" android:screenSize="xlarge"/>
+     </compatible-screens>
+-    <application android:allowBackup="true" android:backupAgent="com.google.android.apps.camera.backup.CameraBackupAgent" android:debuggable="true" android:extractNativeLibs="false" android:fullBackupOnly="false" android:hardwareAccelerated="true" android:icon="@mipmap/adaptiveproduct_pixelcamera" android:label="@string/app_name" android:largeHeap="true" android:name="com.google.android.apps.camera.legacy.app.app.CameraApp" android:restoreAnyVersion="true" android:supportsRtl="true" android:theme="@style/Theme.Camera" android:usesCleartextTraffic="false">
++    <application android:allowBackup="true" android:backupAgent="com.google.android.apps.camera.backup.CameraBackupAgent" android:debuggable="true" android:fullBackupOnly="false" android:hardwareAccelerated="true" android:icon="@mipmap/adaptiveproduct_pixelcamera" android:label="@string/app_name" android:largeHeap="true" android:name="com.google.android.apps.camera.legacy.app.app.CameraApp" android:restoreAnyVersion="true" android:supportsRtl="true" android:theme="@style/Theme.Camera" android:usesCleartextTraffic="false">
+         <uses-library android:name="com.google.android.gestureservice" android:required="false"/>
+         <uses-library android:name="com.google.android.camera2" android:required="false"/>
+         <uses-library android:name="com.google.android.camera.experimental2015" android:required="false"/>
+@@ -191,4 +191,4 @@
+         <activity android:exported="false" android:name="com.google.android.gms.common.api.GoogleApiActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+         <uses-library android:name="com.google.android.wearable" android:required="false"/>
+     </application>
+-</manifest>
+\ No newline at end of file
++</manifest>
+diff --git a/apktool.yml b/apktool.yml
+index 657bb91..38d6eec 100644
+--- a/apktool.yml
++++ b/apktool.yml
+@@ -2391,49 +2391,6 @@ doNotCompress:
+ - assets/photo-ocr/tfmini_lstm_recognizer_latin_0.3_batch24.bincfg
+ - assets/photo-ocr/tfmini_lstm_recognizer_zh_0.1.bincfg
+ - jpg
+-- lib/arm64-v8a/libAndroidJniUtilsJni.so
+-- lib/arm64-v8a/libGoogleCameraRelease_xxhdpi.so
+-- lib/arm64-v8a/libImageJni.so
+-- lib/arm64-v8a/libImageProcJni.so
+-- lib/arm64-v8a/libJniUtilsJni.so
+-- lib/arm64-v8a/libPortraitModeJni.so
+-- lib/arm64-v8a/libSeeDarkJni.so
+-- lib/arm64-v8a/libadsprpc_app_N.so
+-- lib/arm64-v8a/libbarhopper.so
+-- lib/arm64-v8a/libcyclops.so
+-- lib/arm64-v8a/libeis.so
+-- lib/arm64-v8a/libentity-clusterer_jni.so
+-- lib/arm64-v8a/libfacebeautification.so
+-- lib/arm64-v8a/libfast_moments_hdr_jni.so
+-- lib/arm64-v8a/libframeutil.so
+-- lib/arm64-v8a/libgcam_jni.so
+-- lib/arm64-v8a/libgyrostabilization-jni.so
+-- lib/arm64-v8a/libhalide_hexagon_host_app.so
+-- lib/arm64-v8a/libhardwarebuffer-jni.so
+-- lib/arm64-v8a/libimage.so
+-- lib/arm64-v8a/libimageutilsjni.so
+-- lib/arm64-v8a/libjni_faceutil.so
+-- lib/arm64-v8a/libjni_imgutil.so
+-- lib/arm64-v8a/libjpeg-jni.so
+-- lib/arm64-v8a/liblensoffsetcalculation-jni.so
+-- lib/arm64-v8a/liblightcycle.so
+-- lib/arm64-v8a/libmicrovideo_tone_map.so
+-- lib/arm64-v8a/libnativehelper_compat_libc++.so
+-- lib/arm64-v8a/libocr.so
+-- lib/arm64-v8a/liboliveoil.so
+-- lib/arm64-v8a/librectiface_jni.so
+-- lib/arm64-v8a/librefocus.so
+-- lib/arm64-v8a/librsjni.so
+-- lib/arm64-v8a/libsemanticlift-annotators.so
+-- lib/arm64-v8a/libsmartcapture_native.so
+-- lib/arm64-v8a/libsurface-jni.so
+-- lib/arm64-v8a/libtext_orientation_classifier_high_resolution_jni.so
+-- lib/arm64-v8a/libtextclassifier_jni_noicu.so
+-- lib/arm64-v8a/libtracking-jni-base.so
+-- lib/arm64-v8a/libtracking-jni.so
+-- lib/arm64-v8a/libvertical_orientation_classifier_jni_coarse.so
+-- lib/arm64-v8a/libvision_face_jni.so
+-- lib/arm64-v8a/libyuv-jni.so
+ - png
+ - ogg
+ - res/raw/easel_finish_resources_fingerprint
